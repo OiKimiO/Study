@@ -11,6 +11,7 @@ import hello.core.scan.filter.*;
 
 public class ComponentFilterAppConfigTest {
 	
+	/*
 	@Test
 	void filterScan() {
 		ApplicationContext ac = new AnnotationConfigApplicationContext(ComponentFilterAppConfig.class);
@@ -28,4 +29,5 @@ public class ComponentFilterAppConfigTest {
 	static class ComponentFilterAppConfig{
 		
 	}
+	*/
 }

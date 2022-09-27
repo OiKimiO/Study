@@ -22,13 +22,21 @@ public class AppConfig {
 		return new MemberServiceImpl(memberRepository());
 	}
 	
+	
 	@Bean
 	public OrderService orderService() {
+		OrderServiceImpl orderServiceImpl = new OrderServiceImpl();
+		orderServiceImpl.setDiscountPolicy(discountPolicy());
+		orderServiceImpl.setMemberRepository(memberRepository());
+		return orderServiceImpl;
+		/*
 		// 기능을 사용할 구현체에 기능이 정의된 메서드를 매개변수로 던진다.
+		
 		return new OrderServiceImpl(
 									memberRepository(),
 									discountPolicy()
 				);
+		*/
 	}
 	
 	// 새로운 기능이 정의되면 아래의 return할 객체를 변경한다.

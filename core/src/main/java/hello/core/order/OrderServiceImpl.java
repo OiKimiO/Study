@@ -1,6 +1,9 @@
 package hello.core.order;
 
 import hello.core.member.*;
+
+import org.springframework.beans.factory.annotation.Autowired;
+
 import hello.core.discount.*;
 
 public class OrderServiceImpl implements OrderService{
@@ -18,13 +21,31 @@ public class OrderServiceImpl implements OrderService{
 		private final DiscountPolicy   discountPolicy   = new FixDiscountPolicy();
 		private final DiscountPolicy discountPolicy = new RateDiscountPolicy();
 	*/
+	
+	private MemberRepository memberRepository;
+	private DiscountPolicy   discountPolicy;
+	
+	@Autowired
+	public void setMemberRepository(MemberRepository memberRepository) {
+		this.memberRepository = memberRepository; 
+	}
+	
+	@Autowired
+	public void setDiscountPolicy(DiscountPolicy discountPolicy) {
+		this.discountPolicy = discountPolicy; 
+	}
+	
+	/*
+	  생성자를 이용한 DI
 	private final MemberRepository memberRepository;
 	private final DiscountPolicy   discountPolicy;
 	
+	@Autowired
 	public OrderServiceImpl(MemberRepository memberRepository, DiscountPolicy discountPolicy) {
 		this.memberRepository = memberRepository;
 		this.discountPolicy   = discountPolicy;
 	}
+	*/
 	
 	@Override
 	public Order createOrder(Long memberId, String itemName, int itemPrice) {
