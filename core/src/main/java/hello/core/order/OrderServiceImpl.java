@@ -21,7 +21,7 @@ public class OrderServiceImpl implements OrderService{
 		private final DiscountPolicy   discountPolicy   = new FixDiscountPolicy();
 		private final DiscountPolicy discountPolicy = new RateDiscountPolicy();
 	*/
-	
+	/*
 	private MemberRepository memberRepository;
 	private DiscountPolicy   discountPolicy;
 	
@@ -35,8 +35,9 @@ public class OrderServiceImpl implements OrderService{
 		this.discountPolicy = discountPolicy; 
 	}
 	
-	/*
-	  생성자를 이용한 DI
+	*/
+	
+	//  생성자를 이용한 DI
 	private final MemberRepository memberRepository;
 	private final DiscountPolicy   discountPolicy;
 	
@@ -45,7 +46,7 @@ public class OrderServiceImpl implements OrderService{
 		this.memberRepository = memberRepository;
 		this.discountPolicy   = discountPolicy;
 	}
-	*/
+	
 	
 	@Override
 	public Order createOrder(Long memberId, String itemName, int itemPrice) {
