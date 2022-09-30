@@ -8,7 +8,7 @@ import hello.core.member.Member;
 @Component
 public class RateDiscountPolicy implements DiscountPolicy{
 
-	private int discountPercent = 20; // 1000원 할인 
+	private int discountPercent = 10; // 1000원 할인 
 	
 	@Override
 	public int discount(Member member, int price) {
