@@ -9,8 +9,7 @@ public class _10844_쉬운계단수_다시풀기 {
 	@Test
 	void main() {
 		/* 
-		*/ 
-		
+		*/ 		
 		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 		
 	}
