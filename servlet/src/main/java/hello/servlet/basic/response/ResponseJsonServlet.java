@@ -21,7 +21,6 @@ public class ResponseJsonServlet extends HttpServlet{
 	
 	@Override
 	protected void service(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// Content-Type : text/html; charset=utf-8
 		response.setContentType("application/json");
 		response.setCharacterEncoding("utf-8");
 		
@@ -31,6 +30,7 @@ public class ResponseJsonServlet extends HttpServlet{
 	    String result = objectMapper.writeValueAsString(data);
 	    
 	    response.getWriter().write(result);
+	    // aa
 	}
 
 }
