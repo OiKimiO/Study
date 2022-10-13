@@ -11,6 +11,7 @@ public class MemberRepositoryTest {
 	private static final String List = null;
 	MemberRepository memberRepository = MemberRepository.getInstance();
 	
+	// 각 테스트 메서드가 실행된 후 실행되는 메서드
 	@AfterEach
 	void afterEach() {
 		memberRepository.clearStore();

@@ -1,0 +1,41 @@
+서블릿 
+  1. JSP  
+    - 클래스 사용법 
+     * <%@ page import="hello.servlet.domain.member.MemberRepository" %>
+    - 자바코드 입력 방법 
+     * <% ~~ %>
+    - 자바코드 출력 방법
+     * <%= ~~ %>
+  2. 서블릿과 JSP의 한계 
+    - 서블릿 개발
+      * 자바코드와 HTML 파일이 썩여 지저분
+    - JSP 개발
+      * 자바코드와 HTML의 분리
+      * 하지만 비지니스 로직의 분리는 어려움 
+      * 그래서 MVC 패턴을 사용하게 됨
+
+MVC 패턴 - 개요
+  1. 너무 많은 역할
+  2. 변경의 라이프 사이클
+  3. 기능 특화
+  4. Model View Controller
+     - 컨트롤러
+     - 모델 
+       * 뷰의 출력할 데이터를 담아둔다.
+     - 뷰 
+  5. MvcServlet
+     - /WEB-INF
+       * 이경로 안에 있으면 외부에서 직접 JSP를 호출할 수 없다.
+     - redirect vs forward
+       * redirect : 실제 클라이언트(웹브라우저)에 응답이 나갔다가 클라이언트가 redirect경로로 다시 요청
+       * forward  : 서버 내부에서의 호출 > 클라이언트가 알지 못함
+     - MVC 패턴의 단점 
+       * 포워드 중복
+       * ViewPath에 중복
+       * 사용하지 않는 코드
+         1) HttpServletRequest, HttpServletResponse를 사용하는 코드는 
+            테스틑 케이스를 작성하기도 어렴다.
+       * 공통처리가 어렵다.
+         1) 다양한 기능을 제공 및 처리를 위해 공통처리 작업이 필요하며, 공통작업을 위해 프론트 컨트롤러
+            패턴을 도입할 필요가 있다. 
+       
