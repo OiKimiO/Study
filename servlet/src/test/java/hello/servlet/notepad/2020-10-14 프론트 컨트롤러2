@@ -23,4 +23,9 @@
         * /WEB-INF/views/members.jsp     > members
    3) ModelView
       - 서블릿 종속을 제거하기위해 사용
-   4) 
+ 3. 단순하고 실용적인 컨트롤러 - v4
+   1) 기존 v3에서 변경된 것은 Model을 파라미터를 전달을 하는 것
+   2) Model에서 return하는 값이 경로라는 것
+     * FrontController에서 논리경로가 key값인 value값을 반환 
+     * value값을 토대로 데이터 파라미터와 model값을 구성 한뒤 경로를 리턴
+ 

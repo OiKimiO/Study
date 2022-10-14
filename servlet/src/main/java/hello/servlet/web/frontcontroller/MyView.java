@@ -1,6 +1,7 @@
 package hello.servlet.web.frontcontroller;
 
 import java.io.*;
+import java.util.Map;
 
 import javax.servlet.*;
 import javax.servlet.http.*;
@@ -17,4 +18,15 @@ public class MyView {
 		RequestDispatcher dispatcher = request.getRequestDispatcher(viewPath);
 						  dispatcher.forward(request, response);
 	}
+
+	public void render(Map<String, Object> model, HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		modelToRequestAttribute(model,request);
+		RequestDispatcher dispatcher = request.getRequestDispatcher(viewPath);
+		dispatcher.forward(request, response);
+	}
+
+	private void modelToRequestAttribute(Map<String, Object> model, HttpServletRequest request) {
+		model.forEach((key,value) -> request.setAttribute(key, value));
+	}
+
 }
