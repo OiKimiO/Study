@@ -19,19 +19,25 @@ public class FrontControllerServletV3 extends HttpServlet {
 	
 	public FrontControllerServletV3() {
 		controllerMap.put("/front-controller/v3/members/new-form", new MemberFormControllerV3());
-		controllerMap.put("/front-controller/v3/members/save", new MemberSaveControllerV3());
-		controllerMap.put("/front-controller/v3/members", new MemberListControllerV3());
+		controllerMap.put("/front-controller/v3/members/save",     new MemberSaveControllerV3());
+		controllerMap.put("/front-controller/v3/members",          new MemberListControllerV3());
 	}
 	
 	@Override
 	protected void service(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		System.out.println("FrontControllerServletV3.service");
 		String requestURI = request.getRequestURI();
+		System.out.println("requestURI = " + requestURI);
+		
 		ControllerV3 controller = controllerMap.get(requestURI);
+		System.out.println("controller = " + controller);
+		
 		
 		if(controller == null) {
 			response.setStatus(HttpServletResponse.SC_NOT_FOUND);
 			return;
 		}
+		
 		
 		Map<String,String> paramMap = createParamMap(request);
 		ModelView mv 				= controller.process(paramMap);
@@ -55,6 +61,6 @@ public class FrontControllerServletV3 extends HttpServlet {
 	}
 	
 	private MyView viewResolver(String viewName) {
-		return new MyView("/WEB-INF/views" + viewName + ".jsp"); 
+		return new MyView("/WEB-INF/views/" + viewName + ".jsp"); 
 	}
 }

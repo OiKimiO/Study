@@ -32,6 +32,7 @@ public class RequestBodyJsonServlet extends HttpServlet{
 	
 	@Override
 	protected void service(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		System.out.println("RequestBodyJsonServlet.service");
 		ServletInputStream inputStream = request.getInputStream();
 		String messageBody = StreamUtils.copyToString(inputStream, StandardCharsets.UTF_8);
 		

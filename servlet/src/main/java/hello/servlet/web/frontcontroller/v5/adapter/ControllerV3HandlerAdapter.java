@@ -1,4 +1,4 @@
-package hello.servlet.web.frontcontroller.v5;
+package hello.servlet.web.frontcontroller.v5.adapter;
 
 import java.io.*;
 import java.util.*;
@@ -9,6 +9,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import hello.servlet.web.frontcontroller.ModelView;
 import hello.servlet.web.frontcontroller.v3.ControllerV3;
+import hello.servlet.web.frontcontroller.v5.MyHandlerAdapter;
 
 public class ControllerV3HandlerAdapter implements MyHandlerAdapter{
 
@@ -41,7 +42,7 @@ public class ControllerV3HandlerAdapter implements MyHandlerAdapter{
 	private Map<String, String> createParamMap(HttpServletRequest request) {
 		Map<String,String> paramMap = new HashMap<>();
 		request.getParameterNames().asIterator()
-		       .forEachRemaining(paramName -> paramMap.put(paramName, request.getParameter("paramName")));
+		       .forEachRemaining(paramName -> paramMap.put(paramName, request.getParameter(paramName)));
 				
 		return paramMap;
 	}
