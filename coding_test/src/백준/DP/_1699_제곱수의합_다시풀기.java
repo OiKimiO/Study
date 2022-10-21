@@ -9,27 +9,16 @@ public class _1699_제곱수의합_다시풀기 {
 	public static void main(String[] args) throws NumberFormatException, IOException {
 		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 		int N    = Integer.parseInt(br.readLine());
-		int sqrt = (int) Math.sqrt(N);
-		int answer = 0;
+		int[] dp = new int[N+1];
 		
-		while(N > 0) {
-			if(N < 4) {
-				answer += N;
-				break;
-			}
-			if(N > sqrt*sqrt) {
-				answer++;
-				N -= (sqrt*sqrt);
-			}else {
-				while(N < sqrt*sqrt) {
-					sqrt--;
-				}
-				answer++;
-				N -= (sqrt*sqrt);
+		for(int i = 1; i <= N; i++) {
+			dp[i] = 100000;
+			for(int j = 1; j*j <= i; j++) {
+				dp[i] = Math.min(dp[i], dp[i-(j*j)] + 1);
 			}
 		}
 		
-		System.out.println(answer);
+		System.out.println(dp[N]);
 	}
 
 }
