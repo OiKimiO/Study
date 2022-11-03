@@ -26,13 +26,13 @@ public class _3085_사탕게임_수정중 {
 			for(int j = 0; j < N; j++) {
 				if(i + 1 < N) {
 					swap(i,j,i+1,j);
-					findMaxLength(i,j,i+1,j,false);
+					findMaxLength();
 					swap(i+1,j,i,j);
 				}
 				
 				if(j + 1 < N) {
 					swap(i,j,i,j+1);
-					findMaxLength(i,j,i,j+1,true);
+					findMaxLength();
 					swap(i,j+1,i,j);
 				}
 			}
@@ -41,70 +41,34 @@ public class _3085_사탕게임_수정중 {
 		System.out.println(answer);
 	}
 	
-	private static void findMaxLength(int i, int j,int I, int J,boolean side) {
+	private static void findMaxLength() {
 		
-		if(side) {
-			int cnt = 0;
-			for(int k = 0; k < N; k++) {
-				if(arr[i][j] == arr[i][k]) {
+		for(int i = 0; i < N; i++) {
+			int cnt = 1;
+			for(int j = 0; j < N-1; j++) {
+				if(arr[i][j] == arr[i][j+1]) {
 					cnt++;
 				}else {
 					cnt = 1;
 				}
+				
+				if(answer < cnt) {
+					answer = cnt;
+				}
 			}
 			
-			if(answer < cnt) answer = cnt;
-			cnt = 0;
-			for(int e = 0; e < N; e++) {
-				if(arr[i][J] == arr[i][e]) {
+			cnt = 1;
+			for(int j = 0; j < N-1; j++) {
+				if(arr[j][i] == arr[j+1][i]) {
 					cnt++;
 				}else {
 					cnt = 1;
 				}
-			}
-			
-			if(answer < cnt) answer = cnt;
-			cnt = 0;
-			for(int l = 0; l < N; l++) {
-				if(arr[i][j] == arr[l][j]) {
-					cnt++;
-				}else {
-					cnt = 1;
+				if(answer < cnt) {
+					answer = cnt;
 				}
 			}
 			
-			if(answer < cnt) answer = cnt;
-		}else {
-			int cnt = 0;
-			for(int k = 0; k < N; k++) {
-				if(arr[i][j] == arr[k][j]) {
-					cnt++;
-				}else {
-					cnt = 1;
-				}
-			}
-			
-			if(answer < cnt) answer = cnt;
-			cnt = 0;
-			for(int e = 0; e < N; e++) {
-				if(arr[I][j] == arr[e][j]) {
-					cnt++;
-				}else {
-					cnt = 1;
-				}
-			}
-			
-			if(answer < cnt) answer = cnt;
-			cnt = 0;
-			for(int l = 0; l < N; l++) {
-				if(arr[i][j] == arr[i][l]) {
-					cnt++;
-				}else {
-					cnt = 1;
-				}
-			}
-			
-			if(answer < cnt) answer = cnt;
 		}
 		
 	}
