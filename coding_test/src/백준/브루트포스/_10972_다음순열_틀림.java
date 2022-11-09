@@ -9,34 +9,38 @@ public class _10972_다음순열_틀림{
 		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 		int N = Integer.parseInt(br.readLine());
 		StringTokenizer st = new StringTokenizer(br.readLine());
-		PriorityQueue<Integer> queue = new PriorityQueue<>();
+		PriorityQueue<Integer> queue = new PriorityQueue<Integer>();
 		int[] arr = new int[N];
-		boolean bool = true;
+		boolean bool = false;
 		for(int i = 0; i < N; i++) {
 			arr[i] = Integer.parseInt(st.nextToken());
 		}
 		
-		for(int i = N-1; i >= 1; i--) {
-			if(arr[i] > arr[i-1]){
-				int length = i;
+		outer:for(int i = N-1; i >= 1; i--) {
+			int prev_i = i-1;
+			if(arr[i] > arr[prev_i]){
 				
-				int swap = arr[i-1];
-				arr[i-1] = arr[i];
-				arr[i] = swap;
-				
-				while(length != N) {
-					queue.add(arr[length]);
-					length++;
-				}
-				
-				for(int k = i; k < N; k++) {
-					arr[k] = queue.poll();
+				for(int last_i = N-1; last_i >= i; last_i--) {
+					if(arr[prev_i] < arr[last_i]) {
+						int swap    = arr[prev_i];
+						arr[prev_i] = arr[last_i];
+						arr[last_i] = swap;
+						
+						int k = N - 1;
+						
+						while(i < k) {
+							int tmp = arr[i];
+							arr[i] = arr[k];
+							arr[k] = tmp;
+							i++;
+							k--;
+						}
+						bool = true;
+						break outer;
+					}
 				}
 				
 				break;
-			}
-			if(i == 1) {
-				bool = false;
 			}
 		}
 		StringBuilder sb = new StringBuilder();
@@ -44,6 +48,7 @@ public class _10972_다음순열_틀림{
 			for(int i = 0; i < N; i++) {
 				sb.append(arr[i] + " ");
 			}
+			sb.substring(0, sb.length()-1);
 		}else {
 			sb.append("-1");
 		}
