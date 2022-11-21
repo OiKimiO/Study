@@ -3,7 +3,7 @@ package 백준.브루트포스;
 import java.util.*;
 import java.io.*;
 
-public class _10972_다음순열_틀림{
+public class _10972_다음순열_2번째방법{
 
 	public static void main(String[] args) throws Exception {
 		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
