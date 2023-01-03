@@ -3,10 +3,12 @@ package 백준.브루트포스;
 import java.io.*;
 import java.util.*;
 
+// 맞는데 너무 느림... ㅠㅜ
 public class _스타트와링크_14889_다시 {
 	static boolean[] visited;
 	static int[] ATeam;
 	static int ATeamSum;
+	static boolean[][] check_bool;
 	static int[] BTeam;
 	static int BTeamSum;
 	static int[][] arr_stat;
@@ -58,8 +60,12 @@ public class _스타트와링크_14889_다시 {
 		ATeamSum = 0;
 		BTeamSum = 0;
 		
+		check_bool = new boolean[TeamCount][TeamCount];
 		ASumStat(0,TeamCount);
+		
+		check_bool = new boolean[TeamCount][TeamCount];
 		BSumStat(0,TeamCount);
+		
 		int margin   = Math.abs(ATeamSum-BTeamSum);
 		
 		if(answer > margin) {
@@ -78,9 +84,15 @@ public class _스타트와링크_14889_다시 {
 			int teamEndIdx   = ATeam[end];
 			int stat         = arr_stat[teamStartIdx][teamEndIdx];
 			
+			if(check_bool[start][end]) {
+				continue;
+			}
+			
 			if(stat == 0) {
 				continue;
 			}
+			
+			check_bool[start][end] = true;
 			
 			ATeamSum += stat;
 			ASumStat(start+1, TeamCount); 
@@ -97,9 +109,15 @@ public class _스타트와링크_14889_다시 {
 			int teamEndIdx   = BTeam[end];
 			int stat         = arr_stat[teamStartIdx][teamEndIdx];
 			
+			if(check_bool[start][end]) {
+				continue;
+			}
+			
 			if(stat == 0) {
 				continue;
 			}
+			
+			check_bool[start][end] = true;
 			
 			BTeamSum += stat;
 			BSumStat(start+1, TeamCount); 
