@@ -1,10 +1,6 @@
-package hello.itemservice.domain.item;
+package hello.login.domain.item;
 
 import lombok.Data;
-import org.hibernate.validator.constraints.*;
-
-import javax.validation.constraints.*;
-import javax.validation.constraints.NotBlank;
 
 @Data
 public class Item {
