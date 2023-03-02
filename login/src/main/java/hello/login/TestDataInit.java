@@ -5,10 +5,13 @@ import hello.login.domain.item.ItemRepository;
 import hello.login.domain.member.Member;
 import hello.login.domain.member.MemberRepository;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
+
 import org.springframework.stereotype.Component;
 
 import javax.annotation.PostConstruct;
 
+@Slf4j
 @Component
 @RequiredArgsConstructor
 public class TestDataInit {
@@ -21,6 +24,7 @@ public class TestDataInit {
      */
     @PostConstruct
     public void init() {
+    	log.info("PostConstruct 사용");
         itemRepository.save(new Item("itemA", 10000, 10));
         itemRepository.save(new Item("itemB", 20000, 20));
         

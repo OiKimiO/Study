@@ -6,8 +6,8 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
-import org.apache.catalina.filters.ExpiresFilter;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -30,8 +30,10 @@ public class LoginController {
 	
 	@GetMapping("/login")
 	public String loginForm(@ModelAttribute("loginForm") LoginForm form) {
+		log.info("login page start");
 		return "login/loginForm";
 	}
+	
 	/*
 	@PostMapping("/login")
 	public String login(@Valid @ModelAttribute LoginForm form,
