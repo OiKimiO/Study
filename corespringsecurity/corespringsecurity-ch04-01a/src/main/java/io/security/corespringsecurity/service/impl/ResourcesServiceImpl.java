@@ -9,7 +9,7 @@ import io.security.corespringsecurity.domain.entity.Resources;
 import io.security.corespringsecurity.repository.ResourcesRepository;
 import io.security.corespringsecurity.service.ResourcesService;
 
-@Service
+@Service("resourceService")
 public class ResourcesServiceImpl implements ResourcesService{
 
 	@Autowired

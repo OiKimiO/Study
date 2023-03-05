@@ -18,7 +18,7 @@ import io.security.corespringsecurity.security.handler.AjaxAccessDeniedHandler;
 import io.security.corespringsecurity.security.provider.AjaxAuthenticationProvider;
 
 @Configuration
-@Order(0)
+@Order(1)
 public class AjaxSecurityConfig extends WebSecurityConfigurerAdapter{
 
 	@Override

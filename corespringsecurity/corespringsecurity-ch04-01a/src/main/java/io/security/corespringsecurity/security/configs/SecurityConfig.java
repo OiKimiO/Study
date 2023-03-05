@@ -23,13 +23,13 @@ import io.security.corespringsecurity.security.filter.AjaxLoginProcessingFilter;
 import io.security.corespringsecurity.security.handler.CustomAccessDeniedHandler;
 import io.security.corespringsecurity.security.handler.CustomAuthenticationFailureHandler;
 import io.security.corespringsecurity.security.handler.CustomAuthenticationSuccessHandler;
-import io.security.corespringsecurity.security.provider.CustomAuthenticationProvider;
+import io.security.corespringsecurity.security.provider.FormAuthenticationProvider;
 import lombok.extern.slf4j.Slf4j;
 
 @Configuration
 @EnableWebSecurity
 @Slf4j
-@Order(1)
+@Order(0)
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	
 	@Autowired
@@ -41,6 +41,15 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	@Autowired
 	private FormAuthenticationDetailsSource formAuthenticationDetailsSource;
 	
+	// webIgnore 설정
+    @Override
+    public void configure(WebSecurity web) throws Exception {
+    	/* 정적 자원(/css/*,/js/*,/html/* 등)은 web.ignoring으로 처리하는 것이 맞음
+    	 *  => 보안필터를 거치지 않는다.
+    	 */
+    	web.ignoring().requestMatchers(PathRequest.toStaticResources().atCommonLocations());
+    }
+	
 	@Override
 	protected void configure(AuthenticationManagerBuilder auth) throws Exception {
 		auth.authenticationProvider(authenticationProvider());
@@ -48,7 +57,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
 	@Bean
     public AuthenticationProvider authenticationProvider() {
-		return new CustomAuthenticationProvider();
+		return new FormAuthenticationProvider();
 	}
 
 	// 비밀번호를 암호화 시켜줌
@@ -58,20 +67,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     }
     
     
-    
-    // webIgnore 설정
-    @Override
-    public void configure(WebSecurity web) throws Exception {
-    	/* 정적 자원(/css/*,/js/*,/html/* 등)은 web.ignoring으로 처리하는 것이 맞음
-    	 *  => 보안필터를 거치지 않는다.
-    	 */
-    	web.ignoring().requestMatchers(PathRequest.toStaticResources().atCommonLocations());
-    }
-    
     @Override
     protected void configure(final HttpSecurity http) throws Exception {
-        log.info("Type H ::: ", http);
-    	http
+        http
                 .authorizeRequests()
                 .antMatchers("/","/users","user/login/**","/login*").permitAll() // 모든 사용자가 접근 가능
                 .antMatchers("/mypage").hasRole("USER") // USER는 mypage만 접근 가능

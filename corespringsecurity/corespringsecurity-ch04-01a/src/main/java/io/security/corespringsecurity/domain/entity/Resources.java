@@ -3,21 +3,25 @@ package io.security.corespringsecurity.domain.entity;
 import java.io.Serializable;
 import java.util.*;
 import javax.persistence.*;
+
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
+
 import lombok.*;
 
 @Entity
 @Table(name="RESOURCES")
 @Data
 @ToString(exclude= {"roleSet"})
+@EntityListeners(value= {AuditingEntityListener.class})
 @EqualsAndHashCode(of="id")
+@Builder
 @NoArgsConstructor
 @AllArgsConstructor
-@Builder
 public class Resources implements Serializable{
 
 	@Id
 	@GeneratedValue
-	@Column
+	@Column(name="resource_id")
 	private Long id;
 	
 	@Column(name = "resource_name")

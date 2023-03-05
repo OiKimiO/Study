@@ -15,11 +15,11 @@ import lombok.ToString;
 @Entity
 @Table(name="ROLE")
 @Data
-@ToString(exclude= {"accounts","resourcesSet"})
+@ToString(exclude= {"users","resourcesSet"})
+@Builder
 @NoArgsConstructor
 @AllArgsConstructor
 @EqualsAndHashCode(of = "id")
-@Builder
 public class Role implements Serializable{
 
 	@Id

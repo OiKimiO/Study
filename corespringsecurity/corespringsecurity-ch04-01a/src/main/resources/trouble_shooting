@@ -1,0 +1,40 @@
+오류
+ 1. annotation
+   1) @RequiredArgsConstructor 사용시 오류
+     - 페이지 : UserServiceImpl
+     - 문제    : 의존성 주입의 문제가 있는것 같음
+     - 대처    : @RequiredArgsConstructor 사용중인 모든 클래스  @Autowired 사용
+       * @RequiredArgsConstructor를 사용할 경우 심각한 에러 발생 될 수 있음
+       * 링크 : https://siahn95.tistory.com/170
+       
+   2) @Transactional 미사용으로 인한 오류
+     - 페이지 : UserDetailService
+     - 문제    : could not initialize proxy - no Session
+     - 대처    : Security > Service > UserServiceImpl > Function > @Transactional 처리
+     
+ 2. method 
+   1) findAll 함수 사용시 null 반환
+     - 페이지 : AdminController > UserService > UserRepository > JPARepository
+     - 문제    : findAll 함수 호출시 UserRepository null return됨
+     - 원인    : interface UserRepository @Reposioty 사용으로 인한 문제
+     - 대처    : UserRepository @Reposioty제거
+       * debugging을 통한 실행 메서드 확인  
+       
+ 3. thymeleaf
+   1) 특정 컬럼만 조회가 안됨
+     - 페이지 : admin > user > list.html 
+     - 문제    : RoleName만 조회되어야 하는데 Role 테이블에 있는 모든 내용이 조회됨
+     - 원인    : List값인 userRole을 forEach로 표현하지 않아 List 값 그대로 나오는 문제
+     - 대처    : th:each 문법을 사용하여 문제 해결
+     
+   2) 페이지 데이터 컬럼 문제로 인해 페이지 오류 발생
+     - 페이지 : admin > user > detail.html
+     - 문제    : Property or field 'username' cannot be found on null
+   
+          
+ 4. Servlert
+   1) 페이지가 열리지 않음 
+     - 페이지 : admin > user > list.html
+     - 문제    : template might not exist or might not be accessible by any of the configured Template Resolvers
+     - 원인    : html 경로 잘못 등록
+     

@@ -1,15 +1,18 @@
 <!DOCTYPE html>
-<html lang="ko" xmlns:th="http://www.thymeleaf.org">
-    <div th:fragment="leftmenu">
-        <ul class="nav flex-column">
-            <li class="nav-item">
-                <div style="padding-top:10px;" class="nav flex-column nav-pills" aria-orientation="vertical">
-                    <a th:href="@{/}" style="margin:5px;" class="nav-link active">대시보드</a>
-                    <a th:href="@{/mypage}" style="margin:5px;" class="nav-link text-primary">마이페이지</a>
-                    <a th:href="@{/messages}" style="margin:5px;" class="nav-link text-primary">메시지</a>
-                    <a th:href="@{/config}" style="margin:5px;" class="nav-link text-primary">환경설정</a>
-                </div>
-            </li>
-        </ul>
-    </div>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+<div th:fragment="header">
+    <nav class="navbar navbar-dark sticky-top bg-dark ">
+        <div class="container">
+            <a class="text-light" href="#"><h4>Core Spring Security</h4></a>
+            <ul class="nav justify-content-end">
+                <li class="nav-item" sec:authorize="isAnonymous()"><a class="nav-link text-light" th:href="@{/login}">로그인</a></li>
+                <li class="nav-item" sec:authorize="isAnonymous()"><a class="nav-link text-light" th:href="@{/accounts}">회원가입</a></li>
+                <li class="nav-item" sec:authorize="isAuthenticated()"><a class="nav-link text-light" th:href="@{/logout}">로그아웃</a></li>
+                <li class="nav-item" sec:authorize="hasAuthority('ROLE_ADMIN')"><a class="nav-link text-light" th:href="@{/admin}">관리자</a></li>
+                <li class="nav-item" ><a class="nav-link text-light" href="/">HOME</a></li>
+            </ul>
+        </div>
+    </nav>
+</div>
 </html>

@@ -12,6 +12,10 @@ import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.web.authentication.SimpleUrlAuthenticationFailureHandler;
 import org.springframework.stereotype.Component;
 
+import jdk.internal.org.jline.utils.Log;
+import lombok.extern.slf4j.Slf4j;
+
+@Slf4j
 @Component
 public class CustomAuthenticationFailureHandler extends SimpleUrlAuthenticationFailureHandler{
 
@@ -20,6 +24,8 @@ public class CustomAuthenticationFailureHandler extends SimpleUrlAuthenticationF
 										HttpServletResponse response, 
 										AuthenticationException exception)
 			throws IOException, ServletException {
+		
+		log.info("failure onAuthenticationFailure 도착");
 		
 		String errorMessage = "Invalid Username or Password";
 		
@@ -30,7 +36,7 @@ public class CustomAuthenticationFailureHandler extends SimpleUrlAuthenticationF
 		}
 		
 		setDefaultFailureUrl("/login?error=true&exception="+errorMessage);
-		
+		// log.info("");
 		super.onAuthenticationFailure(request, response, exception);
 	}
 }

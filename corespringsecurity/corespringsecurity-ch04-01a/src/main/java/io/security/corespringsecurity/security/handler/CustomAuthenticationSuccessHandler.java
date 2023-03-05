@@ -9,6 +9,7 @@ import javax.servlet.http.HttpServletResponse;
 import org.springframework.security.web.savedrequest.SavedRequest;
 import org.springframework.stereotype.Component;
 
+import jdk.internal.org.jline.utils.Log;
 import lombok.extern.slf4j.Slf4j;
 
 import org.springframework.security.core.Authentication;
@@ -18,6 +19,7 @@ import org.springframework.security.web.authentication.SimpleUrlAuthenticationSu
 import org.springframework.security.web.savedrequest.HttpSessionRequestCache;
 import org.springframework.security.web.savedrequest.RequestCache;
 
+@Slf4j
 @Component
 public class CustomAuthenticationSuccessHandler extends SimpleUrlAuthenticationSuccessHandler{
 
@@ -31,6 +33,7 @@ public class CustomAuthenticationSuccessHandler extends SimpleUrlAuthenticationS
 										Authentication authentication)
 			throws IOException, ServletException {
 		
+		log.info("suceess onAuthenticationSuccess 도착");
 		setDefaultTargetUrl("/");
 		
 		// 사용자의 요청정보

@@ -5,9 +5,9 @@ import org.springframework.stereotype.Repository;
 
 import io.security.corespringsecurity.domain.entity.Account;
 
-@Repository
-public interface UserRepository extends JpaRepository<Account, Long>  {
+public interface UserRepository extends JpaRepository<Account, Long> {
 
 	Account findByUsername(String username);
 
+	int countByUsername(String username);
 }
