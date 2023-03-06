@@ -47,6 +47,7 @@ public class Account implements Serializable{
 
 	// @Column
 	// private String role;
+	// N : M
 	@ManyToMany(fetch   = FetchType.LAZY,
 			    cascade = {CascadeType.ALL})
 	@JoinTable(name			      = "account_roles",

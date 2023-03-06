@@ -33,7 +33,7 @@ public class ResourceController {
 	@Autowired
 	private RoleRepository roleRepository;
 	
-	@GetMapping(value="/")
+	@GetMapping
 	public String getResources(Model model) {
 		List<Resources> resources = resourcesService.selectResources();
 		model.addAttribute("resources", resources);
@@ -41,7 +41,7 @@ public class ResourceController {
 		return "admin/resource/list";
 	}
 	
-	@PostMapping(value="/")
+	@PostMapping
 	public String createResources(ResourcesDto resourcesDto) throws InstantiationException, IllegalAccessException, IllegalArgumentException, InvocationTargetException, NoSuchMethodException, SecurityException {
 		ModelMapper modelMapper = new ModelMapper();
 		Role role 				= roleRepository.findByRoleName(resourcesDto.getRoleName());
@@ -56,14 +56,32 @@ public class ResourceController {
 		return "redirect:/admin/resources";
 	}
 	
+
+	@GetMapping(value="/register")
+	public String viewRoles(Model model) {
+		List<Role> roleList    = roleService.getRoles();
+		ResourcesDto resources = new ResourcesDto();
+		Set<Role> roleSet      = new HashSet<>();
+		resources.setRoleSet(roleSet);
+		
+		model.addAttribute("roleList",roleList);
+		model.addAttribute("resources",resources);
+		
+		return "admin/resource/detail";
+	}
+	
+	
 	@GetMapping(value="/{id}")
-	public String getResource(@PathVariable String id, 
+	public String getResources(@PathVariable String id, 
 							  Model model) {
-		List<Role> roleList = roleService.getRoles();
-	    Resources resources = resourcesService.selectResources(Long.valueOf(id));
+		List<Role> roleList       = roleService.getRoles();
+	    Resources resources       = resourcesService.selectResources(Long.valueOf(id));
+	    ModelMapper modelMapper   = new ModelMapper();
+	    ResourcesDto resourcesDto = modelMapper.map(resources,ResourcesDto.class);
+	    
 	    
 	    model.addAttribute("roleList",roleList);
-	    model.addAttribute("resources",resources);
+	    model.addAttribute("resources",resourcesDto);
 	    
 	    return "admin/resource/detail";
 	}

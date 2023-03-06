@@ -3,6 +3,7 @@ package io.security.corespringsecurity.service.impl;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import io.security.corespringsecurity.domain.entity.Resources;
@@ -22,20 +23,17 @@ public class ResourcesServiceImpl implements ResourcesService{
 
 	@Override
 	public List<Resources> selectResources() {
-		// TODO Auto-generated method stub
-		return null;
+		return resourcesRepository.findAll(Sort.by(Sort.Order.asc("orderNum")));
 	}
 
 	@Override
 	public void insertResource(Resources resources) {
-		// TODO Auto-generated method stub
-		
+		resourcesRepository.save(resources);
 	}
 
 	@Override
 	public void deleteResources(long id) {
-		// TODO Auto-generated method stub
-		
+		resourcesRepository.deleteById(id);
 	}
 
 }

@@ -45,7 +45,7 @@ public class RoleController {
 		return "redirect:/admin/roles";
 	}
 	
-	@PostMapping(value="/{id}")
+	@GetMapping(value="/{id}")
 	public String getRole(@PathVariable String id, 
 						  Model model) {
 		Role role = roleService.getRole(Long.valueOf(id));

@@ -76,7 +76,9 @@ public class UserServiceImpl implements UserService{
 	@Transactional
 	public void modifyUser(AccountDto accountDto) {
 		ModelMapper modelMapper = new ModelMapper(); 
-		Account account = modelMapper.map(accountDto, Account.class);
+		Account account     = modelMapper.map(accountDto, Account.class);
+		
+		log.info("accountDto.getRoles() = {}", accountDto.getRoles());
 		
 		if(accountDto.getRoles() != null) {
 			Set<Role> roles = new HashSet<>();
@@ -85,10 +87,14 @@ public class UserServiceImpl implements UserService{
 						  				Role r = roleRepository.findByRoleName(role);
 						  				roles.add(r);
 					  });
+			
+			log.info("roles = {}", roles);
+			
 			account.setUserRoles(roles);
 		}
 		
 		account.setPassword(passwordEncoder.encode(accountDto.getPassword()));
+		
 		userRepository.save(account);
 	}
 

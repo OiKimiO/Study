@@ -1,80 +1,82 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org"
-      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
 
-	<meta id="_csrf" name="_csrf" th:content="${_csrf.token}" />
-	<meta id="_csrf_header" name="_csrf_header" th:content="${_csrf.headerName}" />
+<meta id="_csrf" name="_csrf" th:content="${_csrf.token}" />
+<meta id="_csrf_header" name="_csrf_header"
+	th:content="${_csrf.headerName}" />
+
+<head th:replace="layout/header::userHead"></head>
+
+<script>
+	/*
+	const nameSelector	= (name) => document.querySelector(name);
+	const $Sel_value	= (name) => nameSelector(name).value.trim();
+	const $Sel_attr		= (name,property) => nameSelector(name).getAttribute(property);
 	
-	<head th:replace="layout/header::userHead"></head>
-	
-	<script>
-		/*
-		const nameSelector	= (name) => document.querySelector(name);
-		const $Sel_value	= (name) => nameSelector(name).value.trim();
-		const $Sel_attr		= (name,property) => nameSelector(name).getAttribute(property);
+	const formLogin = (e) => {
+		const username   = $Sel_value('[name="username"]');
+		const password   = $Sel_value('[name="password"]');
+		const data       = {"username": username, "password" : password };
+		const csrfHeader = $Sel_attr("[name=_csrf_header]","content");
+		const csrfToken  = $Sel_attr("[name=_csrf]","content");
 		
-		const formLogin = (e) => {
-			const username   = $Sel_value('[name="username"]');
-			const password   = $Sel_value('[name="password"]');
-			const data       = {"username": username, "password" : password };
-			const csrfHeader = $Sel_attr("[name=_csrf_header]","content");
-			const csrfToken  = $Sel_attr("[name=_csrf]","content");
-			
-			$.ajax({
-					type 	   : "post",
-					url  	   : "/api/login",
-					data 	   : JSON.stringify(data),
-					dataType   : "json",
-					beforeSend : (xhr) =>{
-						xhr.setRequestHeader(csrfHeader,csrfToken);
-						xhr.setRequestHeader("Content-Type","application/json");
-						xhr.setRequestHeader("X-Requested-With","XMLHttpRequest");
-					},
-					success : (data) => {
-						console.log(data);
-						window.location="/";
-					},
-					error : (xhr, status, error) => {
-						console.log(error);
-						window.location = "/login?error=true&exception="+xhr.responseText;
-					}
-			});
-		}*/	
-	</script>
-	
-	<body>
+		$.ajax({
+				type 	   : "post",
+				url  	   : "/api/login",
+				data 	   : JSON.stringify(data),
+				dataType   : "json",
+				beforeSend : (xhr) =>{
+					xhr.setRequestHeader(csrfHeader,csrfToken);
+					xhr.setRequestHeader("Content-Type","application/json");
+					xhr.setRequestHeader("X-Requested-With","XMLHttpRequest");
+				},
+				success : (data) => {
+					console.log(data);
+					window.location="/";
+				},
+				error : (xhr, status, error) => {
+					console.log(error);
+					window.location = "/login?error=true&exception="+xhr.responseText;
+				}
+		});
+	}*/
+</script>
+
+<body>
 	<div th:replace="layout/top::header"></div>
 	<div class="container">
-	    <div class="text-center login-form">
-	        <div class="col-sm-5">
-	            <div class="panel">
-	                <p>아이디와 비밀번호를 입력해주세요</p>
-	            </div>
-	            
-	            <div th:if="${param.error}" class="form-group">
-	            	<span th:text="${exception}" class="alert alert-danger"></span>
-	            </div>
-	            
-	            <form th:action="@{/login_proc}" class="form-signin" method="post">
+		<div class="text-center login-form">
+			<div class="col-sm-5">
+				<div class="panel">
+					<p>아이디와 비밀번호를 입력해주세요</p>
+				</div>
+
+				<div th:if="${param.error}" class="form-group">
+					<span th:text="${exception}" class="alert alert-danger"></span>
+				</div>
+
+				<form th:action="@{/login_proc}" class="form-signin" method="post">
 					<input th:type="hidden" th:value="secret" name="secret_key" />
-	                <div class="form-group">
-	                    <input type="text" class="form-control" name="username" placeholder="아이디" required="required"
-	                           autofocus="autofocus">
-	                </div>
-	                
-	                <div class="form-group">
-	                    <input type="password" class="form-control" name="password" placeholder="비밀번호" required="required">
-	                </div>
-	
-	                <div class="form-group">
-	                    Remember Me<input type="checkbox" name="remember-me" />
-	                </div>
-	                
-	                <button type="submit" class="btn btn-lg btn-primary btn-block">로그인</button>
-	                <!-- <button type="button" id="formbtn" class="btn btn-lg btn-primary btn-block">로그인</button> -->
-	            </form>
-	        </div>
-	    </div>
+					<div class="form-group">
+						<input type="text" class="form-control" name="username"
+							placeholder="아이디" required="required" autofocus="autofocus">
+					</div>
+
+					<div class="form-group">
+						<input type="password" class="form-control" name="password"
+							placeholder="비밀번호" required="required">
+					</div>
+
+					<div class="form-group">
+						Remember Me<input type="checkbox" name="remember-me" />
+					</div>
+
+					<button type="submit" class="btn btn-lg btn-primary btn-block">로그인</button>
+					<!-- <button type="button" id="formbtn" class="btn btn-lg btn-primary btn-block">로그인</button> -->
+				</form>
+			</div>
+		</div>
 	</div>
-	</body>
+</body>
 </html>

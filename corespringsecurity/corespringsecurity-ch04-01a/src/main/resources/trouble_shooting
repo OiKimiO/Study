@@ -18,7 +18,22 @@
      - 문제    : findAll 함수 호출시 UserRepository null return됨
      - 원인    : interface UserRepository @Reposioty 사용으로 인한 문제
      - 대처    : UserRepository @Reposioty제거
-       * debugging을 통한 실행 메서드 확인  
+       * debugging을 통한 실행 메서드 확인 
+       
+   2) Update가 되지 않음
+     - 페이지 : AdminController > UserService > UserRepository > JPARepository
+     - 문제    
+       (1) modifyUser 함수에서 Entity Save시 업데이트 안됨
+       (2) role값이 조회되지 않음 
+     - 원인    
+       (1) Admin/user/detail.html에 id값이 포함되지 않아 업데이트가 되지 않음
+          * save시 isNew함수를 사용하여 Entity를 저장하거나 업데이트 하는데 isNew함수의 수정 기준은 
+            null이거나 id 값이 없을 때인데 .. 정확한 원인은 모르겠음 
+          * JpaMetamodelEntityInformation > isNew 참고
+       (2) Admin/user/detail.html에 Role값이 잘못 들어감
+     - 대처   
+       (1) Admin/user/detail.html에 id값 hidden으로 추가 > Update 실행
+       (2) Admin/user/detail.html 소스 확인 후 수정
        
  3. thymeleaf
    1) 특정 컬럼만 조회가 안됨
@@ -30,11 +45,15 @@
    2) 페이지 데이터 컬럼 문제로 인해 페이지 오류 발생
      - 페이지 : admin > user > detail.html
      - 문제    : Property or field 'username' cannot be found on null
-   
+     - 원인    : 
           
  4. Servlert
-   1) 페이지가 열리지 않음 
+   1) 페이지 열리지 않음_1
      - 페이지 : admin > user > list.html
      - 문제    : template might not exist or might not be accessible by any of the configured Template Resolvers
      - 원인    : html 경로 잘못 등록
      
+   2) 페이지 열리지 않음_2
+     - 페이지 : controller > admin > ResourceController.java
+     - 문제    : [Request processing failed; nested exception is java.lang.NumberFormatException: For input string: "register"] with root cause
+     - 원인    : Controller에 RequestMapping한 URL이 없어서 발생한 에러 
