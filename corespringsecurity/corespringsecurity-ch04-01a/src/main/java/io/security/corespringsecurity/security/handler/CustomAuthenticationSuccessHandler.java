@@ -8,8 +8,6 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.security.web.savedrequest.SavedRequest;
 import org.springframework.stereotype.Component;
-
-import jdk.internal.org.jline.utils.Log;
 import lombok.extern.slf4j.Slf4j;
 
 import org.springframework.security.core.Authentication;
