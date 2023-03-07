@@ -39,6 +39,8 @@ public class CustomAuthenticationSuccessHandler extends SimpleUrlAuthenticationS
 		
 		if(saveRequest != null) {
 			String targetUrl = saveRequest.getRedirectUrl();
+			log.info("targetUrl = {}", targetUrl);
+			
 			redirectStrategy.sendRedirect(request, response, targetUrl);
 		}else {
 			redirectStrategy.sendRedirect(request, response, getDefaultTargetUrl());

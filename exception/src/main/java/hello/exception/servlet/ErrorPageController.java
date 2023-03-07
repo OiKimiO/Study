@@ -12,6 +12,7 @@ import lombok.extern.slf4j.Slf4j;
 @Controller
 @RequestMapping("/error-page")
 public class ErrorPageController {
+	private final String defaultPage = "error-page";
 	
 	public static final String ERROR_EXCEPTION      = "javax.servlet.error.exception";
 	public static final String ERROR_EXCEPTION_TYPE = "javax.servlet.error.exception_type";
@@ -25,7 +26,7 @@ public class ErrorPageController {
 							   HttpServletResponse response) {
 		log.info("errorPage 404");
 		printErrorInfo(request);		
-		return "error-page/404";
+		return defaultPage+"/404";
 	}
 
 	@RequestMapping("/500")
@@ -33,7 +34,7 @@ public class ErrorPageController {
 								HttpServletResponse response) {
 		log.info("errorPage 500");
 		printErrorInfo(request);
-		return "error-page/500";
+		return defaultPage+"/500";
 	}
 	
 	private void printErrorInfo(HttpServletRequest request) {

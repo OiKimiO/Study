@@ -20,7 +20,6 @@ public class ServletExController {
 	
 	@GetMapping("/error-404")
 	public void error404(HttpServletResponse response) throws IOException {
-		// sendError() 흐름 : WAS(sendError 호출 기록 확인) <- 필터 <- 서블릿 <- 인터셉터 <- 컨트롤러
 		response.sendError(404,"404 오류!");
 	}
 	

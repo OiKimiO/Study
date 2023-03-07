@@ -1,0 +1,47 @@
+Servlet과 Controller를 통한 예외 처리 방법
+ 1. Error 처리를 위한 파일
+   1) WebServerCustomizer
+      - 에러 페이지를 처리하기 위한 공통 서블릿
+        * WebServerFactoryCustomizer<ConfigurableWebServerFactory> 인터페이스를 상속
+      - HttpStatus와 URL을 매핑 시킴
+        * new ErrorPage(HttpStatus.NOT_FOUND, "error-page/404");
+          # HttpStatus.NOT_FOUND일 경우 "error-page/404"를 호출
+          # 페이지에서 404에러가 발생할 경우 "error-page/404"를 호출
+      - 다양한 에러 상태값에 따라 에러 페이지를 호출
+        * 등록된 에러 페이지
+          # errorPage404, errorPage500, errorPageEx 페이지 등록
+            > factory.addErrorPages(errorPage404, errorPage500, errorPageEx);
+            
+   2) ErrorPageController
+      - 호출된 RequestMapping값에 따라 에러 페이지 호출
+       * WebServerCustomizer에서 HttpStatus와 매핑시킨 URL을 관리
+      
+   3) ServletExController
+      - 에러 처리 예시 페이지
+      - 예외 처리 메서드
+        (1) HttpServletResponse.sendError(404)
+            * WebServerCustomizer의 factory.addErrorPages에 등록된 페이지 호출
+        (2) RuntimeException or 자식 타입 예외
+            * errorPageEx 호출
+   
+ 2. 예외 발생 & 오류 페이지 요청 
+   1) 흐름 
+      - WAS(여기까지 전파) < 필터 < 서블릿 < 인터셉터 < 컨트롤러(예외발생)
+      - WAS '/error-page/500' 다시 요청 > 필터 > 서블릿 인터셉터 > 컨트롤러(/error-page/500) > view
+      
+   2) 문제
+      - 오류 발생시 WAS내부에서 다시 호출되는 문제 발생
+        * 이때 필터, 서블릿, 인터셉터도 모두 다시 호출됨
+      - 문제 해결을 위해 DispatcherType를 이용
+        * Client 요청인지 오류 페이지 출력을 위한 내부 요청인지 구분 필요
+        
+        
+인터셉터
+ - Spring에서 제공하는 기능
+ 
+스프링부트 기본 에러 처리 기능 
+ - BasicErrorController에서 에러 처리
+   * 에러 처리 방법은 예외처리 문서를 확인
+   * 스프링부트에서 기본적으로 제공하는 경로가 있음
+
+
