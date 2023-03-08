@@ -1,0 +1,78 @@
+계열사별 로그인 관리 프로젝트
+   1) Version_1
+      - 운영 환경
+        * Naver - Cloud Linux 서버
+          #
+        * Java 11 진행 
+          # 지속적인 업데이트
+          # 성능 개선
+          # 새로운 기능
+      - 회사 프론트 
+        * 장준혁 선임님
+        * 이세경 선임님
+        * 최선영 선임님
+      - SSL 
+        * Let's Encrypt 사용
+      - framework(SpringBoot)
+        * dependency  
+          # Spring Web 
+          # HikariCP
+          # MySQL
+          # lombok 
+          # Spring-Transaction
+          # Spring Security
+          # spring-security-csp
+          # spring-boot-starter-validation
+        * 기능 구성
+          # 인증, 인가 관리
+            > XSS(Cross-Site Scripting) 공격을 방지하기 위한 방법
+               $ Https 설정
+               $ HttpOnly 쿠키 설정 
+               $ CSRF(Cross Site Request Forgery) 토큰 활용 
+               $ CSP(Content Security Policy) 설정
+            > 인증방법
+               $ Ajax를 통한 로그인 구현
+            > 인가 
+               $ Role, Resource를 구분하여 대상자의 권한을 관리
+                  - 공부 후 세분화 시킬 필요 있음
+
+          # DB Connection 관리
+            > JNDI DataSource로 관리
+               $ 보안
+                 - 데이터 베이스 연결 정보를 코드상에 노출하지 X
+                 - PasswordEncoder를 통해 단방향 암호화 방식 진행
+                   * 해시 알고리즘을 활용해 안전한 암호화
+                      # 솔팅(Salting) 과 블럭체인(Chaining) 기법을 사용해 보안성을 높임
+                   * 복호화 할수는 없기에 양방향 보단 단방향 암호화 방식이 더 안전함 
+               $ 관리 및 유지보수 
+                 - 데이터베이스 연결 정보를 서버에 직접 등록함으로 유지보수 측면에서 편리함
+               $ 성능 
+                 - 데이터 베이스 연결을 캐시하여 애플리케이션 코드에서 매번 연결 생성을 할 필요가 X
+
+          # 트랜잭션 관리
+            > ServiceImpl class별로 @Transactional을 사용해 관리
+               - 다수의 사람과 프로젝트 할 경우 가독성이 좋기에 class별로 Transactional을 관리하는 것이 장점
+            > @EnableTransactionManagement를 통해 Class 단위로 트랜잭션 관리
+               - 해당 프로젝트는 트랜잭션을 많이 발생시키지 않을 듯 하지만 
+                 오버헤드가 발생 줄이기 위해 클래스별로 트랜잭션을 관리
+                 * 당장은 프로젝트에서 트랜잭션을 어떻게 관리하면 좋을지는 모르겠음
+                 * 그래서 선택의 기준을 오버헤드 발생량을 줄이는 것을 목표로 함
+
+          # 유효성 검증 관리
+            > 검증 로직은 ServiceImpl에서 구현 
+            > interface Validator를 상속받는 Validation 구현체를 제작
+               $ 보안
+                 - 클라이언트에서 서버로 데이터를 전송하는 과정에서 데이터가 변경될 수 있음
+                   * 데이터 무결성 검증을 위해서 서버에서 작업을 하는 것이 좋음
+               $ 관리 및 유지보수 
+                 - 클라이언트 로직 변경 및 다른 클라이언트가 검사 로직을 사용할 경우 중복 발생
+                    * 이에 서버에서 하나로 관리하는 것이 좋음
+             > 수정/저장/삭제별 DTO를 생성
+               $ 검증되는 컬럼이 수정/저장시 다를 수 있음
+
+          # 예외 처리
+            > 스프링부트가 자동 등록한 BasicErrorController를 활용해 예외 처리 진행
+               $ 직관성 
+                  - 고객이 직관적으로 이해할 수 있는 페이지 제작
+            > 오류는 서버의 로그를 통해 확인할 것
+             
