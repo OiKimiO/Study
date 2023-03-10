@@ -17,7 +17,7 @@
         distribution.
         * gradle-7.6.1폴더에 Gradle Distribution 설정이 포함되지 않았다는 에러
    - 대처
-       (1) 해당 프로젝트만 그래들 버전을 업그레이드
+    (1) 해당 프로젝트만 그래들 버전을 업그레이드
       * https://gradle.org/releases/에서 7.6.1 다운로드 중
     (2) 압축을 풀고 C:\Gradle\gradle-7.6.1\gradle-7.6.1으로 구성되어 있어 
         gradle-7.6.1폴더를 밖으로 보내어 문제 해결
