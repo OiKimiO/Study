@@ -12,9 +12,9 @@ import hello.jdbc.domain.Member;
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
-public class MemberRepositoryVOTest {
+public class MemberRepositoryV0Test {
 
-	MemberRespositoryVO repository = new MemberRespositoryVO();
+	MemberRespositoryV0 repository = new MemberRespositoryV0();
 	
 	@Test
 	void save() throws SQLException {
