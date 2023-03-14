@@ -7,7 +7,7 @@ import hello.jdbc.repository.MemberRespositoryV1;
 import lombok.RequiredArgsConstructor;
 
 @RequiredArgsConstructor
-public class MemberServiceV1 {
+public class MemberServiceV0 {
 
 	private final MemberRespositoryV1 memberRespository;
 	

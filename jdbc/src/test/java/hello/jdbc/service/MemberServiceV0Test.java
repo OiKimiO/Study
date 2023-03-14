@@ -16,21 +16,23 @@ import org.springframework.jdbc.datasource.DriverManagerDataSource;
 
 import hello.jdbc.domain.Member;
 import hello.jdbc.repository.MemberRespositoryV1;
-
-public class MemberServiceV1Test {
+/**
+ *  기본 동작, 트랜잭션이 없어서 문제 발생
+ * */
+public class MemberServiceV0Test {
 
 	public static final String MEMBER_A  = "memberA";
 	public static final String MEMBER_B  = "memberB";
 	public static final String MEMBER_EX = "ex";
 	
 	private MemberRespositoryV1 memberRespository;
-	private MemberServiceV1 memberService;
+	private MemberServiceV0 memberService;
 	
 	@BeforeEach
 	void before() {
 		DriverManagerDataSource dataSource = new DriverManagerDataSource(URL, USERNAME, PASSWORD);
 		memberRespository = new MemberRespositoryV1(dataSource);
-		memberService     = new MemberServiceV1(memberRespository);
+		memberService     = new MemberServiceV0(memberRespository);
 	}
 	
 	@AfterEach
@@ -62,19 +64,19 @@ public class MemberServiceV1Test {
 	@Test
 	@DisplayName("이체중 예외 발생")
 	void accountTransferEx() throws SQLException {
-		// given
+		// given : 데이터를 저장해 테스트를 준비
 		Member memberA  = new Member(MEMBER_A, 10000);
 		Member memberEx = new Member(MEMBER_EX, 10000);
 		memberRespository.save(memberA);
 		memberRespository.save(memberEx);
 		
-		// when
+		// when : 계좌 이체 로직을 실행
 		assertThatThrownBy(() -> memberService.accountTransfer(memberA.getMemberId(),
 															   memberEx.getMemberId(), 
 															   2000))
 							.isInstanceOf(IllegalStateException.class);
 		
-		// then 
+		// then : 계좌 이체 실패, memberA의 돈만 2000원 줄어듦
 		Member findMemberA  = memberRespository.findById(memberA.getMemberId());
 		Member findMemberEx = memberRespository.findById(memberEx.getMemberId());
 		

@@ -18,6 +18,10 @@ import io.security.corespringsecurity.repository.ResourcesRepository;
 import io.security.corespringsecurity.repository.RoleRepository;
 import io.security.corespringsecurity.repository.UserRepository;
 
+/**
+ *  기본 동작, 트랜잭션이 없어서 문제 발생
+ * */
+
 @Component
 public class SetupDataLoader implements ApplicationListener<ContextRefreshedEvent>{
 
