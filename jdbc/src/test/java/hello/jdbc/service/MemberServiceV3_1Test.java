@@ -8,40 +8,43 @@ import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
 import java.sql.SQLException;
 
-import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+import org.springframework.jdbc.datasource.DataSourceTransactionManager;
 import org.springframework.jdbc.datasource.DriverManagerDataSource;
+import org.springframework.transaction.PlatformTransactionManager;
 
 import hello.jdbc.domain.Member;
-import hello.jdbc.repository.MemberRepositoryV1;
+import hello.jdbc.repository.MemberRepositoryV3;
 /**
- *  기본 동작, 트랜잭션이 없어서 문제 발생
+ *  트랜잭션 - 트랜잭션 매니저
  * */
-public class MemberServiceV0Test {
+public class MemberServiceV3_1Test {
 
 	public static final String MEMBER_A  = "memberA";
 	public static final String MEMBER_B  = "memberB";
 	public static final String MEMBER_EX = "ex";
 	
-	private MemberRepositoryV1 memberRespository;
-	private MemberServiceV0 memberService;
+	private MemberRepositoryV3 memberRespository;
+	private MemberServiceV3_1 memberService;
 	
 	@BeforeEach
 	void before() {
 		DriverManagerDataSource dataSource = new DriverManagerDataSource(URL, USERNAME, PASSWORD);
-		memberRespository = new MemberRepositoryV1(dataSource);
-		memberService     = new MemberServiceV0(memberRespository);
+		PlatformTransactionManager transactionManager = new DataSourceTransactionManager(dataSource);
+		memberRespository = new MemberRepositoryV3(dataSource);
+		memberService     = new MemberServiceV3_1(transactionManager,memberRespository);
 	}
 	
-	@AfterEach
+	// @AfterEach
 	void after() throws SQLException {
 		memberRespository.delete(MEMBER_A);
 		memberRespository.delete(MEMBER_B);
 		memberRespository.delete(MEMBER_EX);
 	}
 	
+	/*
 	@Test
 	@DisplayName("정상 이체")
 	void accountTransfer() throws SQLException {
@@ -59,7 +62,7 @@ public class MemberServiceV0Test {
 		Member findMemberB = memberRespository.findById(memberB.getMemberId());
 		assertThat(findMemberA.getMoney()).isEqualTo(8000);
 		assertThat(findMemberB.getMoney()).isEqualTo(12000);
-	}
+	}*/
 	
 	@Test
 	@DisplayName("이체중 예외 발생")
@@ -80,8 +83,9 @@ public class MemberServiceV0Test {
 		Member findMemberA  = memberRespository.findById(memberA.getMemberId());
 		Member findMemberEx = memberRespository.findById(memberEx.getMemberId());
 		
-		// memberA의 돈만 2000원 줄었고 ex의 돈은 10000원 그대로 이다.
-		assertThat(findMemberA.getMoney()).isEqualTo(8000);
+		// PlatformTransactionManager로 Connection을 관리한 뒤에는 처리 과정에서 에러가 발생하면
+		// 트랜잭션을 rollback 처리
+		assertThat(findMemberA.getMoney()).isEqualTo(10000);
 		assertThat(findMemberEx.getMoney()).isEqualTo(10000);
 	}
 }

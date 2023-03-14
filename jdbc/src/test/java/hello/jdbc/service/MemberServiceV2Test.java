@@ -15,6 +15,7 @@ import org.junit.jupiter.api.Test;
 import org.springframework.jdbc.datasource.DriverManagerDataSource;
 
 import hello.jdbc.domain.Member;
+import hello.jdbc.repository.MemberRepositoryV1;
 import hello.jdbc.repository.MemberRepositoryV2;
 /**
  *  기본 동작, 트랜잭션이 없어서 문제 발생

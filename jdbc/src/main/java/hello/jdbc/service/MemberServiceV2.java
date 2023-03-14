@@ -31,7 +31,7 @@ public class MemberServiceV2 {
 			con.setAutoCommit(false); 
 			
 			// 비즈니스 로직
-			bizLogic(con, fromId, toId, money);
+			// bizLogic(con, fromId, toId, money);
 			
 			// 성공시 커밋
 			con.commit();
@@ -59,7 +59,7 @@ public class MemberServiceV2 {
 			}
 		}
 	}
-
+	/*
 	private void bizLogic(Connection con, String fromId, String toId, int money) throws SQLException {
 		Member fromMember = memberRepository.findById(con, fromId);
 		Member toMember   = memberRepository.findById(con, toId);
@@ -68,7 +68,7 @@ public class MemberServiceV2 {
 		validation(toMember);
 		memberRepository.update(toId, toMember.getMoney() + money);
 	}
-
+	 */
 	private void validation(Member toMember) {
 		if(toMember.getMemberId().equals("ex")) {
 			throw new IllegalStateException();

@@ -9,6 +9,7 @@ import java.util.NoSuchElementException;
 
 import javax.sql.DataSource;
 
+import org.springframework.jdbc.datasource.DataSourceUtils;
 import org.springframework.jdbc.support.JdbcUtils;
 
 import hello.jdbc.domain.Member;
@@ -16,11 +17,13 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
 /**
- * JDBC - DataSource 사용, JdbcUtils 사용
+ * 트랜잭션 - 트랜잭션 매니저 
+ * DataSourceUtils.getConnection()
+ * DataSourceUtils.releaseConnection()
  * */
 @Slf4j
 @RequiredArgsConstructor
-public class MemberRespositoryV1 {
+public class MemberRepositoryV3 {
 
 	private final DataSource dataSource;
 	
@@ -128,11 +131,15 @@ public class MemberRespositoryV1 {
 		// 종료하는 것이 Pool에 Connection을 반환하는 것을 말함
 		JdbcUtils.closeResultSet(rs);
 		JdbcUtils.closeStatement(stmt);
-		JdbcUtils.closeConnection(con);
+		
+		// 주의! 트랜잭션 동기화를 사용하려면 DataSourceUtils를 사용해야 함
+		DataSourceUtils.releaseConnection(con, dataSource);
 	}
 	
 	public Connection getConnection() throws SQLException {
-		Connection con = dataSource.getConnection();
+		// 주의! 트랜잭션 동기화를 사용하려면 DataSourceUtils를 사용해야 함
+		// DataSource에서 Connection 들고오면 Conection autoCommit으로 처리됨
+		Connection con = DataSourceUtils.getConnection(dataSource);
 		log.info("get Connection ={}, class={}",con, con.getClass());
 		return con;
 	}

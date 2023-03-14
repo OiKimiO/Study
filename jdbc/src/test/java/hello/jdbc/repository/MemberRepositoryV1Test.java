@@ -20,7 +20,7 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 public class MemberRepositoryV1Test {
 
-	MemberRespositoryV1 repository;
+	MemberRepositoryV1 repository;
 	
 	@BeforeEach
 	void beforeEach() throws InterruptedException {
@@ -32,7 +32,7 @@ public class MemberRepositoryV1Test {
 		dataSource.setUsername(USERNAME);
 		dataSource.setPassword(PASSWORD);
 		
-		repository = new MemberRespositoryV1(dataSource);
+		repository = new MemberRepositoryV1(dataSource);
 		Thread.sleep(1000);
 	}
 	

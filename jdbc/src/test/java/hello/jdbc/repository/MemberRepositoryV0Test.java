@@ -14,7 +14,7 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 public class MemberRepositoryV0Test {
 
-	MemberRespositoryV0 repository = new MemberRespositoryV0();
+	MemberRepositoryV0 repository = new MemberRepositoryV0();
 	
 	@Test
 	void save() throws SQLException {
